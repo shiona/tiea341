@@ -1,0 +1,5 @@
+a) x in the first parenthesis gets the function x -> x*x. 
+   This is given the value 2*2 to make the final result 8.
+b) each word gets their letters sorted individually.
+   "hello world" becomes "ehllo dlorw".
+c) infinite list [5..]

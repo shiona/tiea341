@@ -2,3 +2,6 @@ Commented on robotic TA about the fibonacci exercise.
 Bot was right that I had the wrong sequence, but
 wrong about not being able to generate the series without
 "guards, multiple patterns, cases or even ifs".
+
+Commented on the "Fold everything" exercise about
+possibly incorrect type of remove.

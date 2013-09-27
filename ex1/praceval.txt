@@ -1,5 +1,31 @@
-a) x in the first parenthesis gets the function x -> x*x. 
-   This is given the value 2*2 to make the final result 8.
-b) each word gets their letters sorted individually.
-   "hello world" becomes "ehllo dlorw".
-c) infinite list [5..]
+a) 
+(\x -> x 2 * 2) (\x -> x+x)
+=={- x := \x -> x+x -}
+((\x -> x+x) 2 * 2)
+=={- x := 2 -}
+((2+2) *2)
+8
+
+b) 
+unwords . map sort . words
+== {- f . g . h ... k . l  
+==   <==> \x -> f . g . h ... k $ l x  
+==   <==> \x -> f $ f $ h ... k $ l x
+==   <==> \x -> f ( g ( h ( ... k ( l x )...)))
+== -}
+
+\x -> unwords ( map sort ( words x ) )
+
+-- This, in my opinion, doesn't prove a thing, 
+-- just makes the thing harder to read
+
+c) 
+let f x = x : f(x+1) 
+f 5
+== {- x := 5 -}
+5 : f(5+1)
+== {- x := 5+1 = 6 -}
+5 : 6 : f(6+1) 
+...
+5:6:7:8:...
+-- So an infinite list [5..]

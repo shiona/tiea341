@@ -1,0 +1,15 @@
+a)
+Takes in a string and returns a string, no change to type
+String -> String
+
+b)
+Takes in a stirng and returns a count, which is some sort of number most likely
+Num a => String -> a
+
+c)
+Same as a)
+String -> String
+
+d)
+Assuming "user specified" means that the ordering-function is given by user at call:
+(a -> a -> Ordering) -> [a] -> [a]

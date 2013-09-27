@@ -1,0 +1,26 @@
+a) partition a list to parts by a <a -> Bool> -function
+
+-- base case
+partition f [] = ([],[])
+
+-- general case
+partition f (l:ls) = if f l then (l:acc, den)
+                            else (acc, l:den)
+  where
+    (acc, den) = partition ls
+
+b) remove duplicates from list
+
+-- call a helper.
+nub = reverse . flip nub' []
+-- base case 
+
+nub' [] os = os
+
+
+-- general case
+
+nub' (l:ls) os = if l `elem` os then nub' ls os
+
+                                else nub' ls (l:os)
+ 

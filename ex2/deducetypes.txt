@@ -1,0 +1,38 @@
+Any type name is bound only withing the <> -brackets
+
+a)
+
+<[String] -> String> . <(a -> b) -> [a] -> [b]> <String -> String> . <String -> [String]>
+== Has to take in a String, since last part only accepts that.
+<[String] -> String> . <(a -> b) -> [a] -> [b]> <String -> String> $ <[String]>
+== Apply map
+<[String] -> String> . <[String] -> [String]> $ <[String]>
+== Apply function
+<[String] -> String> $ <[String]>
+== Once more
+<String>
+
+b)
+
+<String> -> <Ord a => [a] -> a> ( <(a -> b) -> [a] -> [b]> <Num b => [a] -> b> (<String -> [String]> <String>))
+== Apply words and map
+<String> -> <Ord a => [a] -> a> ( <Num b => [[a]] -> [b]> <[String]>)
+== Since String = [Char], [String] fits [[a]] when a = Char
+== Apply function
+<String> -> <Ord a => [a] -> a> ( <Num b => [b]>)
+== Apply one more time, noting that a = b, and moving things around:
+<(Ord a, Num a) => String -> a> 
+
+c)
+
+--I'm quite sure something about this logic is fishy,
+-- the type class-requirements seem to appear from nothing in my deductions.
+
+<a> -> <a> -> <Ord a => a -> a -> a> <Num a => a> (<Ord a => a -> a -> a> <a> <a>)
+== Apply function
+<a> -> <a> -> <Ord a => a -> a -> a> <Num a => a> <Ord a => a>
+== Again. Now that max requires the types to be the same, the stricter Num requirement 
+== bounds both variables.
+<a> -> <a> -> <(Ord a, Num a) => a>
+== Move things around:
+<(Ord a, Num a) => a -> a -> a>

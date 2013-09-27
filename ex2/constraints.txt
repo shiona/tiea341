@@ -1,0 +1,2 @@
+Least restrictive: baz -- from a list of numbers to a number
+Most  restrictive: bar -- from a list of anything to anything

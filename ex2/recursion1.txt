@@ -1,0 +1,36 @@
+a) erasing elements of value x from list ls
+
+-- base case 
+erase x [] = []
+
+-- general case
+erase x (l:ls)
+ | x == l    = erase x ls
+ | otherwise = l : erase x ls
+
+b) taking only even numbers from a list
+
+-- base case
+takeEvens [] = []
+
+-- general case
+takeEvens (x:xs) 
+ | x % 2 == 0 = x : takeEvens xs 
+ | otherwise  = takeEvens xs
+
+c) flattening a list of lists
+
+-- base case
+concat [] = []
+
+-- general case
+concat (l:ls) = l ++ concat ls
+
+d) list join
+
+-- base cases
+(++) [] bs = bs
+(++) as [] = as
+
+-- general case
+(++) (a:as) bs = a : (as ++ bs)

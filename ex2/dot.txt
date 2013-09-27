@@ -1,0 +1,7 @@
+   «u->h» . «k->u» 
+== {- Use (.) instead of .-}
+   (.) «u->h» «k->u» 
+== {- write out the type of (.) -}
+   «(b->c) -> (a->b) -> a -> c» «u->h» «k->u» 
+== {- Apply the function, a := k, b := u, c := h
+   «k->h»

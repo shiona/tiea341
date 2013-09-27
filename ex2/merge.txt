@@ -1,0 +1,12 @@
+merge [] b = b
+merge a [] = a
+merge (a:as) (b:bs) 
+ | a < b     = a : merge as (b:bs)
+ | otherwise = b : merge (a:as) bs
+
+deal ls = splitAt ((length ls)`div`2) ls
+
+mergeSort []  = []
+mergeSort [x] = [x]
+mergeSort ls  = merge (mergeSort as) (mergeSort bs)
+  where (as, bs) = deal ls

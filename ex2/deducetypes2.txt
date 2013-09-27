@@ -1,0 +1,14 @@
+a :: Num a => a        -- a value
+b :: Num a => a        -- calling a function <a->a> with a value
+c :: a -> b -> Boolean -- skipping two parameters and returning False
+d :: a -> b -> Boolean -- works the same as c
+e :: (a,b) -> b        -- same as just snd
+f :: [(a,b)] -> b      -- same as snd . head, so same as before but input is in list
+g :: <(a -> b) -> [a] -> [b]> <(a -> b) -> [a] -> [b]>
+  == <[(a -> b)] -> [[a] -> [b]]>
+h :: <(a -> b -> a) -> a -> [b] -> a> <(a -> b -> a) -> a -> [b] -> a>
+  == try to make a := (a -> b -> a), cannot find a resulting a from the inner 
+  == function => Error
+i :: <(b->c) -> (a->b) -> (a->c)> <(a -> b) -> [a] -> [b]> <(a -> b) -> [a] -> [b]> 
+  == <(c->d) -> [a] -> [b]> -- makes sense if a = [c] and b = [d]
+  == <(c->d) -> [[c]] -> [[d]]>

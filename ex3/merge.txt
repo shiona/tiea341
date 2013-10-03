@@ -1,0 +1,69 @@
+import Prelude hiding (splitAt)
+
+
+merge [] b = b
+merge a [] = a
+merge (a:as) (b:bs) 
+ | a < b     = a : merge as (b:bs)
+ | otherwise = b : merge (a:as) bs
+
+
+-- I would much rather take one extra round of running
+-- through the list instead of losing the stability of
+-- the sorting function.
+ 
+--deal ls = splitAt ((length ls)`div`2) ls
+deal [] =       ([],[])
+deal [x] =      ([x],[])
+deal (x:y:ls) = (x:xs, y:ys)
+  where (xs, ys) = deal ls
+
+mergeSort []  = []
+mergeSort [x] = [x]
+mergeSort ls  = merge (mergeSort as) (mergeSort bs)
+  where (as, bs) = deal ls
+
+
+--------------------------------------------------------------
+-- Implementation of cons list that knows it's total length --
+-- and a stable merge sort for that datastructure.          --
+--------------------------------------------------------------
+
+data MyList' a = ML a (MyList' a) | MLE deriving(Show)
+data MyList a  = MyList (MyList' a) Int deriving(Show)
+
+cons :: a -> MyList a -> MyList a
+cons e (MyList ls len) = MyList (ML e ls) (len+1) 
+
+fromList :: [a] -> MyList a
+fromList [] = MyList MLE 0 
+fromList (x:xs) = MyList (ML x as) (len+1)
+  where (MyList as len) = fromList xs 
+
+splitAt :: MyList a -> Int -> (MyList a, MyList a)
+splitAt (MyList (MLE) len) sp       = (MyList MLE 0, MyList MLE 0)
+splitAt (MyList a len)     0        = (MyList MLE 0, MyList a len)
+splitAt (MyList (ML a as) len) sp   = (MyList (ML a xs) (xl+1), ys)
+  where
+    (MyList xs xl, ys) = splitAt (MyList as (len-1)) (sp-1) 
+
+halve :: MyList a -> (MyList a, MyList a)
+halve (MyList a len) = splitAt (MyList a len) (len`div`2)
+
+merge' (MyList MLE 0) b = b
+merge' a (MyList MLE 0) = a      
+merge' (MyList (ML a as) al) (MyList (ML b bs) bl) 
+ | a < b       = MyList (ML a xs) (xl+1)
+ | otherwise   = MyList (ML b ys) (yl+1)
+  where
+    (MyList xs xl) = merge' (MyList as (al-1)) (MyList (ML b bs) bl)
+    (MyList ys yl) = merge' (MyList (ML a as) al) (MyList bs (bl-1)) 
+
+mergeSort' :: Ord a => MyList a -> MyList a
+mergeSort' (MyList xs xl) 
+ | xl < 2    = MyList xs xl
+ | otherwise = merge' as bs
+  where 
+    as = mergeSort' ass 
+    bs = mergeSort' bss
+    (ass, bss) = halve (MyList xs xl)

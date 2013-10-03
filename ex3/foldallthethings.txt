@@ -1,14 +1,14 @@
 
-length   = foldl'  (const.(+1)) 0  
+length   = foldl' (const.(+1)) 0  
 
-concat   = foldl1' (++) 
+concat   = foldr1 (++) 
 
-remove e = foldr   (\a b -> if a == e then b else a : b) []
+remove e = foldr  (\a b -> if a == e then b else a : b) []
 
-find f   = foldr   (\a b -> if f a then Just a else b) Nothing
+find f   = foldr  (\a b -> if f a then Just a else b) Nothing
 
-filter f = foldr   (\a b -> if f a then a : b else b) [] 
+filter f = foldr  (\a b -> if f a then a : b else b) [] 
 
-take i   = foldr   (\a b -> if (fst a) <= i then (snd a) : b else []) [] . zipWith (,) [1..]
+take i   = foldr  (\a b -> if (fst a) <= i then (snd a) : b else []) [] . zipWith (,) [1..]
 
 nub      = reverse . foldl  (\a b -> if b `elem` a then a else b:a) []

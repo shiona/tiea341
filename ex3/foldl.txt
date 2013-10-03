@@ -1,0 +1,5 @@
+
+foldl f z xs = iter z xs
+  where 
+    iter z [] = z
+    iter z (x:xs) = iter (f z x) xs 

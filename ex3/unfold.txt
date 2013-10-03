@@ -1,0 +1,12 @@
+
+unfoldr f e = case f e of
+                       Just (out, next) -> out : unfoldr f next
+                       Nothing          -> []
+
+let natnum = unfoldr (\a -> Just (a, a+1)) 0
+
+zip = unfoldr ziphelp
+  where 
+    ziphelp ([], _)          = Nothing
+    ziphelp (_, [])          = Nothing
+    ziphelp ((a:as), (b:bs)) = Just ((a,b), (as,bs))

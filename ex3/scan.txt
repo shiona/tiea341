@@ -1,0 +1,15 @@
+
+{-
+    scanr (+) 0 [q1]
+ ->       q1+ head scanr..     : ..
+-}
+
+scanr f z []     = [z]
+scanr f z (x:xs) = f x y : (y:ys)
+  where 
+    (y:ys) = scanr f z xs
+
+scanl f z xs = iter z xs
+  where 
+    iter z []     = z : []
+    iter z (x:xs) = z : iter (f z x) xs

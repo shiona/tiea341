@@ -1,0 +1,40 @@
+{-
+ Notation:
+ - < and <= 
+   Depending on the context, either less than (or equal to)
+   or (proper) subset of.
+ - ==> 
+   Implication
+-}
+
+# length
+# (++)
+
+length (xs ++ ys) == length xs + length ys
+
+# nub
+
+nub xs <= xs
+nub (xs ++ ys) <= nub (xs) ++ nub (ys)
+
+# permutations
+(length xs) <  (length ys) ==> length (permutations xs) <= length (permutations ys)
+(length xs) == (length ys) ==> length (permutations xs) == length (permutations ys)
+(permutations xs) (++) (permutations ys) <= permutations (xs++ys)
+xs == nub xs               ==> permutations xs == nub (permutations xs)
+
+# erase
+# takeEvens
+-- Both are a special case of filter:
+filter f xs <= xs
+filter f . filter f == filter f
+(filter f xs) ++ (filter f ys) == filter f (xs ++ ys)
+
+# concat
+-- special case of (++), not going to go through all the examples again.
+concat [a,b] == a ++ b
+
+# partition
+-- partition does not lose nor add elements. Note: set notation.
+(as, bs) == partition xs  ==>  as ++ bs == xs 
+

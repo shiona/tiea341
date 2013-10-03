@@ -15,8 +15,8 @@ takeEvens [] = []
 
 -- general case
 takeEvens (x:xs) 
- | x % 2 == 0 = x : takeEvens xs 
- | otherwise  = takeEvens xs
+ | x `mod` 2 == 0 = x : takeEvens xs 
+ | otherwise      = takeEvens xs
 
 c) flattening a list of lists
 

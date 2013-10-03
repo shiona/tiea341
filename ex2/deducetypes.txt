@@ -1,27 +1,31 @@
 Any type name is bound only withing the <> -brackets
 
+Notation is what it is, since the double <> -brackets are 
+somewhat burdensome to write (or copy/paste)
+
+
 a)
 
 <[String] -> String> . <(a -> b) -> [a] -> [b]> <String -> String> . <String -> [String]>
-== Has to take in a String, since last part only accepts that.
-<[String] -> String> . <(a -> b) -> [a] -> [b]> <String -> String> $ <[String]>
 == Apply map
-<[String] -> String> . <[String] -> [String]> $ <[String]>
+<[String] -> String> . <[String] -> [String]> . <String -> [String]>
 == Apply function
-<[String] -> String> $ <[String]>
+<[String] -> String> .  <String -> [String]>
 == Once more
-<String>
+<String -> String>
 
 b)
 
-<String> -> <Ord a => [a] -> a> ( <(a -> b) -> [a] -> [b]> <Num b => [a] -> b> (<String -> [String]> <String>))
+--Of course length returns an integral. Why an Int and not an Integer, that's the question.
+
+<String> -> <Ord a => [a] -> a> ( <(a -> b) -> [a] -> [b]> <[a] -> Int> (<String -> [String]> <String>))
 == Apply words and map
-<String> -> <Ord a => [a] -> a> ( <Num b => [[a]] -> [b]> <[String]>)
+<String> -> <Ord a => [a] -> a> ([[a]] -> [Int]> <[String]>)
 == Since String = [Char], [String] fits [[a]] when a = Char
 == Apply function
-<String> -> <Ord a => [a] -> a> ( <Num b => [b]>)
-== Apply one more time, noting that a = b, and moving things around:
-<(Ord a, Num a) => String -> a> 
+<String> -> <Ord a => [a] -> a> <[Int]>
+== Apply one more time, noting that Int is an instance of Ord, and moving things around:
+<String -> Int> 
 
 c)
 

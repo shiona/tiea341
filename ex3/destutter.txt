@@ -1,0 +1,51 @@
+-- Definition:
+
+destutter :: Eq a => [a] -> [a]
+destutter [] = []                          1
+destutter (x:xs) = x : destutter' xs x     2
+destutter' [] _ = []                       3 
+destutter' (y:ls) x                        4
+ | y == x      = destutter' ls x
+ | otherwise   = y : destutter' ls y
+
+
+-- Assumption
+
+destutter (destutter xs) == destutter xs
+
+-- Proof:
+
+destutter $ destutter [] 
+-- Apply 1
+destutter []
+
+
+destutter $ destutter (x:xs)
+-- Apply 2
+destutter (x : destutter' xs x)
+-- Apply 2 
+x : destutter' (destutter' xs x) x
+-- Which ends our job with destutter and moves us to destutter'
+
+-------------
+-- Prove that 
+-- destutter' (destutter' list x) x  ==  destutter' list x
+-------------
+
+-- For empty list
+-----------------
+destutter' (destutter' [] x) x 
+-- Apply 3 
+destutter' [] x
+
+
+-- For non empty list
+---------------------
+destutter' (destutter' (y:ys) x) x
+-- Apply 4
+-- If y == x                         --| If y /= x
+destutter' (destutter' ys x) x       --| destutter' (y : destutter' ys y) x
+                                     --| Apply 4 again
+                                     --| y : destutter' (destutter' ys y) y
+
+-- Which should be a proof by induction.

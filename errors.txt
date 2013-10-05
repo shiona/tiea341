@@ -1,0 +1,18 @@
+
+This is a list of errors I've found on the exercise pages.
+
+- The filter laws: 
+  Example code of monotonicity should be:
+  'length (filter f xs) <= length xs'
+
+- Credits page
+  Link to Binary tree project points to
+  /TIES343/Chapters/00059_Project_Binary_Tree.html.
+  should be 
+  /TIES343/Chapters/00059_Project_Binary_Tree.html
+
+- Project: A Binary Tree:
+  First link "Binary trees", points to: 
+  /TIES343/Chapters/Chapters/00052_Codata.md
+  should be:
+  /TIES343/Chapters/00052_Codata.html

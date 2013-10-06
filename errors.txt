@@ -16,3 +16,16 @@ This is a list of errors I've found on the exercise pages.
   /TIES343/Chapters/Chapters/00052_Codata.md
   should be:
   /TIES343/Chapters/00052_Codata.html
+
+  'The idea behind binary trees is to ensure that every 
+  key stored in the left subtree is smaller than the key 
+  at the current branch and that everything else is 
+  stored in the right subtree.'
+  But the code speaks otherwise:
+   | key <=  k = Branch (k,v) (insert key value left) right
+
+- Codata
+  Example 'take 5 myList', after second application is given as
+  '1:2:take 4 (3:myList)'
+  should be
+  '1:2:take 3 (3:myList)'

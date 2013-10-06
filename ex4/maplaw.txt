@@ -1,0 +1,33 @@
+-- Laws:
+--map _ []     = []                   1
+--map f (x:xs) = f x : map f xs       2
+
+-- Prove that:
+map f . map g == map (f . g) 
+
+-- For []:
+map f . map g []
+-- 1. 
+map f []
+-- 1.
+[]
+-- 1. in reverse. _ can be any function, choose (f.g)
+map (f . g) []
+
+
+-- For unempty list:
+map f $ map g (x:xs)
+-- 1.
+map f $ (g x : map g xs)
+-- 1. 
+f ( g x ) : map f $ map g xs
+
+
+-- Different direction:
+map (f . g) (x:xs)
+-- 1.
+(f . g) x : map (f . g) xs
+-- definition of (.)
+f ( g x ) : map (f . g) xs
+
+proof done.

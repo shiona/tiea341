@@ -1,4 +1,3 @@
-
 length   = foldl' (const.(+1)) 0  
 
 concat   = foldr1 (++) 
@@ -11,4 +10,4 @@ filter f = foldr  (\a b -> if f a then a : b else b) []
 
 take i   = foldr  (\a b -> if (fst a) <= i then (snd a) : b else []) [] . zipWith (,) [1..]
 
-nub      = reverse . foldl  (\a b -> if b `elem` a then a else b:a) []
+nub      = foldr (\a b -> a : filter (/=a) b) []

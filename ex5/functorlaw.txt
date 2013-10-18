@@ -1,0 +1,34 @@
+
+-- laws
+
+map _ []     = []             -- Map 1
+map f (x:xs) = f x : map f xs -- Map 2
+
+-- Assume that  map (f . g) == (map f . map g)
+
+ map (f . g) []
+== {- Map 1 -}
+ []
+== {- Inverse of Map 1 -}
+ map f []
+== {- Inverse of Map 1 -}
+ map f (map g [])
+== {- Inverse of definition of (.) -}
+ (map f . map g) []
+
+
+ map (f . g) (x:xs)
+== {- Map 2 -}
+ (f . g) x : map (f . g) xs
+== {- The inductive assumption -}
+ (f . g) x : (map f . map g) xs
+== {- Definition of (.) -}
+ f (g  x) : (map f (map g xs))
+== {- Inverse of Map 2 -}
+ map f (g x:map g xs)
+== {- Inverse of Map 2 -}
+ map f (map g (x:xs))
+== {- Definition of (.)-}
+ (map f . map g) (x:xs)
+
+

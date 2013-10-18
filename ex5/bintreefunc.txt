@@ -21,9 +21,10 @@ fmap id (Branch el l r) == Branch (id el) (fmap id l) (fmap id r)  -- 2. func
 
 -- proof for 2. functor law  | fmap (f . g) = (fmap f) . (fmap g) |
 
-fmap (f . g) Tip        == Tip                 -- 1. func
-                        == fmap g Tip          -- inv 1. func
-                        == fmap f (fmap g Tip) -- inv 1. func
+fmap (f . g) Tip        == Tip                       -- 1. func
+                        == fmap g Tip                -- inv 1. func
+                        == fmap f (fmap g Tip)       -- inv 1. func
+                        == ((fmap f) . (fmap g)) Tip -- definition of (.)
 
 fmap (f . g) (Branch el l r) == Branch ((f . g) el ) (fmap (f . g) l) (fmap (f . g) r)
 -- by induction assume that   fmap (f . g) == (fmap f) . (fmap g) for l and r

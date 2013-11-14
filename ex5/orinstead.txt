@@ -1,0 +1,52 @@
+{-# LANGUAGE BangPatterns #-}
+
+import Control.Applicative 
+
+newtype Parser a = Parser (String -> [(a, String)])
+
+item :: Parser Char
+item = Parser p
+ where 
+  p (x:xs) = [(x,xs)]
+  p ""     = []
+
+
+runParser (Parser p) s = p s 
+
+
+orInstead a b = Parser $ \s -> runParser a s ++ runParser b s
+
+orInstead' (Parser a) (Parser b)       = Parser $ \s -> a s ++ b s
+-- by definition of runParser 
+-- = orInstead' a@(Parser a') b@(Parser b') = Parser $ \s -> runParser a s ++ runParser b s 
+
+{-
+ Functionally these are exactly the same.
+
+ According to my understanding, 
+ the difference should be lazyness. orInstead' should 
+ force the Parsers because of the pattern matching.
+
+ I would assume the following would work for 
+ orInstead but not for orInstead', but both seem 
+ to work when tested.
+-}
+
+t1 = head $ runParser (orInstead  item undefined) "keke" -- returns ('k', "eke")
+t2 = head $ runParser (orInstead' item undefined) "keke" -- returns ('k', "eke")
+
+{- 
+ If we defined orInsteads to be strict on their 
+ parameters with BangPatterns:
+-}
+
+oI  !a !b                    = Parser $ \s -> runParser a s ++ runParser b s
+
+oI' !(Parser a) !(Parser b)  = Parser $ \s -> a s ++ b s
+
+{-
+ then the assumption from before actually is completely wrong:
+-}
+
+t3 = head $ runParser (oI item undefined)  "keke"  -- returns undefined
+t4 = head $ runParser (oI' item undefined) "keke"  -- returns ('k', "eke")
